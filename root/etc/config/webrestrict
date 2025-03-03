@@ -1,0 +1,7 @@
+# File: root/etc/config/webrestrict
+config basic 'basic'
+    option enabled '0'
+    option mode 'blacklist'
+
+config client 'client1'
+    option mac '00:11:22:33:44:55'
