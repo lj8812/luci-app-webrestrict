@@ -1,0 +1,37 @@
+# File: root/usr/sbin/apply_rules
+#!/bin/sh
+. /lib/functions.sh
+
+# 清理旧规则
+iptables -D FORWARD -j webrestrict 2>/dev/null
+iptables -F webrestrict 2>/dev/null
+iptables -X webrestrict 2>/dev/null
+
+# 读取配置
+config_load webrestrict
+config_get enabled basic enabled 0
+config_get mode basic mode "blacklist"
+
+# 仅在启用时生效
+if [ "$enabled" = "1" ]; then
+    # 创建专用链
+    iptables -N webrestrict
+    iptables -I FORWARD -j webrestrict
+
+    # 收集MAC地址
+    mac_list=""
+    config_foreach handle_client client
+
+    handle_client() {
+        config_get mac $1 mac
+        iptables -A webrestrict -m mac --mac-source "$mac" -j RETURN
+    }
+
+    # 应用模式规则
+    if [ "$mode" = "blacklist" ]; then
+        iptables -A webrestrict -j DROP
+    else
+        iptables -A webrestrict -j REJECT \
+            --reject-with icmp-net-prohibited
+    fi
+fi
