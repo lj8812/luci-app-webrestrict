@@ -1,0 +1,27 @@
+# File: po/zh_Hans/webrestrict.po
+msgid "Access Restriction"
+msgstr "访问限制"
+
+msgid "Real-time Network Control"
+msgstr "实时网络控制"
+
+msgid "Enable"
+msgstr "启用"
+
+msgid "Control Mode"
+msgstr "控制模式"
+
+msgid "Blacklist Mode (Block listed devices)"
+msgstr "黑名单模式（禁止列表设备上网）"
+
+msgid "Whitelist Mode (Allow only listed devices)"
+msgstr "白名单模式（仅允许列表设备上网）"
+
+msgid "Device List"
+msgstr "设备列表"
+
+msgid "MAC Address"
+msgstr "MAC地址"
+
+msgid "Unknown device"
+msgstr "未知设备"
